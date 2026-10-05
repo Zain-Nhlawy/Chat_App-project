@@ -7,7 +7,4 @@
 - to be familiar with cashing messages 
 
 - and also improve the notifications method to be more proffisional 
-<<<<<<< HEAD
 
-=======
->>>>>>> d381ea2365e96acd74c443f3c824fa087c9fb546
