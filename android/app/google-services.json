@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "447039498269",
+    "project_id": "chatappproject-bfdb8",
+    "storage_bucket": "chatappproject-bfdb8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447039498269:android:bfe6f9c4bbe1520d803ef4",
+        "android_client_info": {
+          "package_name": "com.alza3eem.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9T4zNnW1rXqerkW-uo_AowPucG_QX-_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
