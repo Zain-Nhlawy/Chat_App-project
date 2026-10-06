@@ -6,6 +6,11 @@ class UserModel {
     required this.status,
   });
 
+  final String uid;
+  final String name;
+  final String email;
+  final String status;
+
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       uid: map['uid'] as String? ?? '',
@@ -14,11 +19,6 @@ class UserModel {
       status: map['status'] as String? ?? 'Unavailable',
     );
   }
-
-  final String uid;
-  final String name;
-  final String email;
-  final String status;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

@@ -17,8 +17,19 @@ final authStateChangesProvider = StreamProvider<User?>((ref) {
   return authRepository.authStateChanges;
 });
 
+abstract interface class IAuthViewModel {
+  Future<bool> signIn({required String email, required String password});
+
+  Future<bool> signUp({
+    required String name,
+    required String email,
+    required String password,
+  });
+  Future<void> signOut();
+}
+
 /// ViewModel responsible for managing authentication operations and loading/error states.
-class AuthViewModel extends AsyncNotifier<void> {
+class AuthViewModel extends AsyncNotifier<void> implements IAuthViewModel {
   @override
   FutureOr<void> build() {
     // Initial state is idle.
@@ -26,22 +37,20 @@ class AuthViewModel extends AsyncNotifier<void> {
 
   /// Attempts to sign in an existing user.
   /// Returns `true` on success, or `false` if an error occurred.
-  Future<bool> signIn({
-    required String email,
-    required String password,
-  }) async {
+  @override
+  Future<bool> signIn({required String email, required String password}) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await ref.read(authRepositoryProvider).signIn(
-            email: email,
-            password: password,
-          );
+      await ref
+          .read(authRepositoryProvider)
+          .signIn(email: email, password: password);
     });
     return !state.hasError;
   }
 
   /// Registers a new user and creates their Firestore record.
   /// Returns `true` on success, or `false` if an error occurred.
+  @override
   Future<bool> signUp({
     required String name,
     required String email,
@@ -49,16 +58,15 @@ class AuthViewModel extends AsyncNotifier<void> {
   }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await ref.read(authRepositoryProvider).signUp(
-            name: name,
-            email: email,
-            password: password,
-          );
+      await ref
+          .read(authRepositoryProvider)
+          .signUp(name: name, email: email, password: password);
     });
     return !state.hasError;
   }
 
   /// Signs out the currently authenticated user.
+  @override
   Future<void> signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
@@ -68,5 +76,6 @@ class AuthViewModel extends AsyncNotifier<void> {
 }
 
 /// Provider for accessing the [AuthViewModel] state and actions.
-final authViewModelProvider =
-    AsyncNotifierProvider<AuthViewModel, void>(AuthViewModel.new);
+final authViewModelProvider = AsyncNotifierProvider<AuthViewModel, void>(
+  AuthViewModel.new,
+);
